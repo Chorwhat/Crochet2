@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import Counter from "./components/Counter";
 import Pattern from "./components/Pattern";
+import { testPatterns } from "./testPatterns";
+
+
+//import env from "./env";
 
 function App() {
-  const numRows = 3; // number of rows in the pattern
-  const checkboxesPerRow = 10;
-  const totalCheckboxes = numRows * checkboxesPerRow;
+
+  //Pattern is an array of arrays, each array is a row, and each object is a stitch
+  const testPattern = testPatterns.patternShort
+
+  const numRows = testPattern.length;
+ 
+  //numStitches is the number of objects in the pattern array
+  let numStitches = 0;
+  for (let i = 0; i < testPattern.length; i++) {
+    numStitches += testPattern[i].length;
+  }
+
+  const totalCheckboxes = numStitches;
 
   const [count, setCount] = useState(0);
 
@@ -18,13 +32,9 @@ function App() {
   };
 
   const handleCheckboxClick = (clickedCheckboxIndex) => {
-    const startingIndex = checkboxesPerRow;
-    const newCount = 1 + clickedCheckboxIndex + startingIndex - checkboxesPerRow;
-    handleCountChange(newCount);
+    handleCountChange(clickedCheckboxIndex);
   };
   
-  
-
   return (
     <div>
       <Counter
@@ -33,6 +43,7 @@ function App() {
         totalCheckboxes={totalCheckboxes}
       />
       <Pattern
+        pattern={testPattern}
         numRows={numRows}
         totalChecked={totalChecked}
         onCheckboxClick={handleCheckboxClick}
