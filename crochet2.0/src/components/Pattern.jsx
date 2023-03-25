@@ -50,15 +50,23 @@ function Pattern({ pattern, numRows, totalChecked, onCheckboxClick }) {
   }
 
   let currentStitch;
-  if (currentStitchIndex + 1 === pattern.flat().length) {
+  if (currentStitchIndex === pattern.flat().length) {
     currentStitch = "Done";
   } else {
-    currentStitch = pattern.flat()[currentStitchIndex + 1]?.name;
+    currentStitch = pattern.flat()[currentStitchIndex]?.name;
+  }
+
+  let nextStitch;
+  if (currentStitchIndex + 1 === pattern.flat().length) {
+    nextStitch = "Done";
+  } else {      
+    nextStitch = pattern.flat()[currentStitchIndex + 1]?.name;
   }
 
   return (
     <div>
-      <h1>Next Stitch: {currentStitch}</h1>
+      <h1>Current Stitch: {currentStitch}</h1>
+      <h2>Next Stitch: {nextStitch}</h2>
 
       <div style={{ display: "flex", overflowX: "scroll" }}>
         {rows}
