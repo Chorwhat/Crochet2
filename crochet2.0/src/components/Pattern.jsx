@@ -64,11 +64,11 @@ function Pattern({ pattern, numRows, totalChecked, onCheckboxClick }) {
   }
 
   return (
-    <div>
+    <div style={{ overflowX: "scroll", maxWidth: "100vw" }}>
       <h1>Current Stitch: {currentStitch}</h1>
       <h2>Next Stitch: {nextStitch}</h2>
 
-      <div style={{ display: "flex", overflowX: "scroll" }}>
+      <div style={{ display: "flex" }}>
         {rows}
       </div>
     </div>

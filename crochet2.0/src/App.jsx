@@ -22,17 +22,19 @@ function App() {
   return (
     <div>
       <PatternSelector patternsObj={testPatterns} setCurrentPattern={setCurrentPattern} />
-      <Counter
-        count={count}
-        setCount={handleCountChange}
-        totalCheckboxes={totalCheckboxes}
-      />
+     
       <Pattern
         currentStitch={count + 1}
         pattern={currentPattern}
         numRows={currentPattern.length}
         totalChecked={count}
         onCheckboxClick={handleCheckboxClick}
+      />
+
+      <Counter
+        count={count}
+        setCount={handleCountChange}
+        totalCheckboxes={totalCheckboxes}
       />
     </div>
   );

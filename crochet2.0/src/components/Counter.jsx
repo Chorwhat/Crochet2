@@ -30,9 +30,9 @@ function Counter({ count, setCount, totalCheckboxes }) {
   }, [handleKeyDown]);
 
   return (
-    <div>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
       <button onClick={() => handleMinusClick()}>-</button>
-      <h1>{count}</h1>
+      <h1 style={{ margin: "0 1rem" }}>{count}</h1>
       <button onClick={() => handlePlusClick()}>+</button>
     </div>
   );
