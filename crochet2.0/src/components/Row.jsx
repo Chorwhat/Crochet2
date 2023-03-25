@@ -15,11 +15,11 @@ function Row({ numCheckBoxes, count, startingIndex, onCheckboxClick, rowIndex, c
   const fractionText = `${checkedCount}/${numCheckBoxes}`;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid gray", padding: "5px" }}>
       <div style={{ display: "flex" }}>{checkboxes}</div>
       <div style={{ fontSize: 12, color: checkedCount === numCheckBoxes ? "green" : "gray" }}>{fractionText}</div>
       <div style={{ fontSize: 12, color: checkedCount === numCheckBoxes ? "green" : "gray" }}>Row {rowIndex}</div>
-        <div style={{ fontSize: 12, color: checkedCount === numCheckBoxes ? "green" : "gray" }}>Total: {cumulativeValue}</div>
+      <div style={{ fontSize: 12, color: checkedCount === numCheckBoxes ? "green" : "gray" }}>Total: {cumulativeValue}</div>
     </div>
   );
 }

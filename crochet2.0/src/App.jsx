@@ -1,31 +1,13 @@
 import React, { useState } from "react";
 import Counter from "./components/Counter";
 import Pattern from "./components/Pattern";
+import PatternSelector from "./components/PatternSelector";
 import { testPatterns } from "./testPatterns";
 
-
-
-
-//import env from "./env";
-
 function App() {
-
-  //Pattern is an array of arrays, each array is a row, and each object is a stitch
-  const testPattern = testPatterns.patternShort
-
-  const numRows = testPattern.length;
- 
-  //numStitches is the number of objects in the pattern array
-  let numStitches = 0;
-  for (let i = 0; i < testPattern.length; i++) {
-    numStitches += testPattern[i].length;
-  }
-
-  const totalCheckboxes = numStitches;
-
   const [count, setCount] = useState(0);
-
-  const totalChecked = count;
+  const [currentPattern, setCurrentPattern] = useState(testPatterns.patternShort);
+  const totalCheckboxes = currentPattern.reduce((total, row) => total + row.length, 0);
 
   const handleCountChange = (newCount) => {
     if (newCount <= totalCheckboxes) {
@@ -37,21 +19,19 @@ function App() {
     handleCountChange(clickedCheckboxIndex);
   };
 
-  
-  
   return (
     <div>
-    
+      <PatternSelector patternsObj={testPatterns} setCurrentPattern={setCurrentPattern} />
       <Counter
         count={count}
         setCount={handleCountChange}
         totalCheckboxes={totalCheckboxes}
       />
       <Pattern
-        currentStitch={count+1}
-        pattern={testPattern}
-        numRows={numRows}
-        totalChecked={totalChecked}
+        currentStitch={count + 1}
+        pattern={currentPattern}
+        numRows={currentPattern.length}
+        totalChecked={count}
         onCheckboxClick={handleCheckboxClick}
       />
     </div>
