@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Row from "./Row";
 
-function Pattern({pattern, numRows, totalChecked, onCheckboxClick }) {
-  
+function Pattern({ pattern, numRows, totalChecked, onCheckboxClick }) {
+  const [currentStitchIndex, setCurrentStitchIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentStitchIndex(totalChecked - 1);
+  }, [totalChecked]);
+
   let remainingChecked = totalChecked;
   const rows = [];
 
@@ -10,13 +15,11 @@ function Pattern({pattern, numRows, totalChecked, onCheckboxClick }) {
     const checkboxesPerRow = pattern[i].length;
     const numCheckedInRow = Math.min(remainingChecked, checkboxesPerRow);
 
-    //every stitch has a value, we want to add up the values of the stitches in the current row
     let rowValue = 0;
     for (let j = 0; j < checkboxesPerRow; j++) {
       rowValue += pattern[i][j].value;
     }
 
-    //at the end of each row, we need the cumulative value of the row and the rows before it
     let cumulativeValue = 0;
     for (let j = 0; j <= i; j++) {
       let rowValue = 0;
@@ -25,13 +28,12 @@ function Pattern({pattern, numRows, totalChecked, onCheckboxClick }) {
       }
       cumulativeValue += rowValue;
     }
-  
-    //const startingIndex should be the total number of stitches in previous rows
+
     let startingIndex = 0;
     for (let j = 0; j < i; j++) {
       startingIndex += pattern[j].length;
     }
-    //decrement remainingChecked by the number of stitches in the current row
+
     remainingChecked -= numCheckedInRow;
 
     rows.push(
@@ -47,9 +49,20 @@ function Pattern({pattern, numRows, totalChecked, onCheckboxClick }) {
     );
   }
 
+  let currentStitch;
+  if (currentStitchIndex + 1 === pattern.flat().length) {
+    currentStitch = "Done";
+  } else {
+    currentStitch = pattern.flat()[currentStitchIndex + 1]?.name;
+  }
+
   return (
-    <div style={{ display: "flex", overflowX: "scroll" }}>
-      {rows}
+    <div>
+      <h1>Next Stitch: {currentStitch}</h1>
+
+      <div style={{ display: "flex", overflowX: "scroll" }}>
+        {rows}
+      </div>
     </div>
   );
 }

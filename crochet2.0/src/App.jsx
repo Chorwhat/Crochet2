@@ -4,6 +4,8 @@ import Pattern from "./components/Pattern";
 import { testPatterns } from "./testPatterns";
 
 
+
+
 //import env from "./env";
 
 function App() {
@@ -34,15 +36,19 @@ function App() {
   const handleCheckboxClick = (clickedCheckboxIndex) => {
     handleCountChange(clickedCheckboxIndex);
   };
+
+  
   
   return (
     <div>
+    
       <Counter
         count={count}
         setCount={handleCountChange}
         totalCheckboxes={totalCheckboxes}
       />
       <Pattern
+        currentStitch={count+1}
         pattern={testPattern}
         numRows={numRows}
         totalChecked={totalChecked}
