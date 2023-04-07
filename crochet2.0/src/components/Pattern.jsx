@@ -50,8 +50,8 @@ function Pattern({ pattern, numRows, totalChecked, onCheckboxClick }) {
   }
 
   let currentStitch;
-  console.log(pattern)
-if (currentStitchIndex ) {
+
+if (currentStitchIndex === pattern.flat().length ) {
     currentStitch = "Done";
   } else {
     currentStitch = pattern.flat()[currentStitchIndex]?.name;
