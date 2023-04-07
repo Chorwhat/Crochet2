@@ -6,8 +6,12 @@ import { testPatterns } from "./testPatterns";
 
 function App() {
   const [count, setCount] = useState(0);
-  const [currentPattern, setCurrentPattern] = useState(testPatterns.patternShort);
-  const totalCheckboxes = currentPattern.reduce((total, row) => total + row.length, 0);
+  const [currentPattern, setCurrentPattern] = useState(testPatterns.patternShort.sections[0].rows);
+  console.log(typeof currentPattern)
+  const totalCheckboxes = Array.isArray(currentPattern) 
+  ? currentPattern.reduce((total, row) => total + row.length, 0) 
+  : 0;
+  console.log(totalCheckboxes)
 
   const handleCountChange = (newCount) => {
     if (newCount <= totalCheckboxes) {
