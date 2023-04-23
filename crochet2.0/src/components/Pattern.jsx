@@ -1,8 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Row from "./Row";
+import Counter from "./Counter";
 
-function Pattern({ pattern, numRows, totalChecked, onCheckboxClick }) {
+function Pattern({ pattern, totalChecked}) {
+  const [count, setCount] = useState(0);
   const [currentStitchIndex, setCurrentStitchIndex] = useState(0);
+  const totalCheckboxes = Array.isArray(pattern) 
+  ? pattern.reduce((total, row) => total + row.length, 0) 
+  : 0;
+
+
+  const handleCountChange = (newCount) => {
+    if (newCount <= totalCheckboxes) {
+      setCount(newCount);
+      setCurrentStitchIndex(newCount - 1)
+    }
+  };
+
+  const handleCheckboxClick = (clickedCheckboxIndex) => {
+    handleCountChange(clickedCheckboxIndex);
+  };
 
   useEffect(() => {
     setCurrentStitchIndex(totalChecked - 1);
@@ -42,7 +59,7 @@ function Pattern({ pattern, numRows, totalChecked, onCheckboxClick }) {
         key={i}
         count={numCheckedInRow}
         startingIndex={startingIndex + 1}
-        onCheckboxClick={onCheckboxClick}
+        onCheckboxClick={handleCheckboxClick}
         rowIndex={i + 1}
         cumulativeValue={cumulativeValue}
       />
@@ -72,6 +89,12 @@ if (currentStitchIndex === pattern.flat().length ) {
       <div style={{ display: "flex" }}>
         {rows}
       </div>
+
+      <Counter
+        count={count}
+        setCount={handleCountChange}
+        totalCheckboxes={totalCheckboxes}
+      />
     </div>
   );
 }
