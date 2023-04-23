@@ -2,23 +2,28 @@ import React, { useState, useEffect } from "react";
 import Row from "./Row";
 import Counter from "./Counter";
 
-function Pattern({ pattern, totalChecked}) {
+function Pattern({ pattern, totalChecked }) {
   const [count, setCount] = useState(0);
   const [currentStitchIndex, setCurrentStitchIndex] = useState(0);
-  const totalCheckboxes = Array.isArray(pattern) 
-  ? pattern.reduce((total, row) => total + row.length, 0) 
-  : 0;
+  const [isActive, setIsActive] = useState(false);
 
+  const totalCheckboxes = Array.isArray(pattern)
+    ? pattern.reduce((total, row) => total + row.length, 0)
+    : 0;
 
   const handleCountChange = (newCount) => {
     if (newCount <= totalCheckboxes) {
       setCount(newCount);
-      setCurrentStitchIndex(newCount - 1)
+      setCurrentStitchIndex(newCount - 1);
     }
   };
 
   const handleCheckboxClick = (clickedCheckboxIndex) => {
     handleCountChange(clickedCheckboxIndex);
+  };
+
+  const handleToggleActive = () => {
+    setIsActive(!isActive);
   };
 
   useEffect(() => {
@@ -68,7 +73,7 @@ function Pattern({ pattern, totalChecked}) {
 
   let currentStitch;
 
-if (currentStitchIndex === pattern.flat().length ) {
+  if (currentStitchIndex === pattern.flat().length) {
     currentStitch = "Done";
   } else {
     currentStitch = pattern.flat()[currentStitchIndex]?.name;
@@ -77,7 +82,7 @@ if (currentStitchIndex === pattern.flat().length ) {
   let nextStitch;
   if (currentStitchIndex + 1 === pattern.flat().length) {
     nextStitch = "Done";
-  } else {      
+  } else {
     nextStitch = pattern.flat()[currentStitchIndex + 1]?.name;
   }
 
@@ -94,7 +99,12 @@ if (currentStitchIndex === pattern.flat().length ) {
         count={count}
         setCount={handleCountChange}
         totalCheckboxes={totalCheckboxes}
+        isActive={isActive}
       />
+
+      <button onClick={handleToggleActive}>
+        {isActive ? "Deactivate" : "Activate"}
+      </button>
     </div>
   );
 }

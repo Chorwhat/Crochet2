@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 
-function Counter({ count, setCount, totalCheckboxes }) {
+function Counter({ count, setCount, totalCheckboxes, isActive}) {
   const handleMinusClick = () => {
     if (count > 0) {
       setCount(count - 1);
@@ -15,11 +15,14 @@ function Counter({ count, setCount, totalCheckboxes }) {
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === "ArrowUp") {
-      handlePlusClick();
-    } else if (event.key === "ArrowDown") {
-      handleMinusClick();
+    if(isActive){
+      if (event.key === "ArrowUp") {
+        handlePlusClick();
+      } else if (event.key === "ArrowDown") {
+        handleMinusClick();
+      }
     }
+   
   };
 
   useEffect(() => {

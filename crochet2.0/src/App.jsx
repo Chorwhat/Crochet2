@@ -14,10 +14,10 @@ function App() {
     <div>
       <PatternSelector patternsObj={testPatterns} setCurrentPattern={setCurrentPattern} />
      
-      <Pattern pattern={currentPattern} />
+      <Pattern pattern={currentPattern} isActive={true}/>
 
       <PatternSelector patternsObj={testPatterns} setCurrentPattern={setOtherPattern} />
-      <Pattern pattern={otherPattern} />
+      <Pattern pattern={otherPattern} isActive={false} />
     </div>
   );
 }
