@@ -4,20 +4,57 @@ import PatternSelector from "./components/PatternSelector";
 import { testPatterns } from "./testPatterns";
 
 function App() {
-  
-  const [currentPattern, setCurrentPattern] = useState(testPatterns.patternShort.sections[0].rows);
-  const [otherPattern, setOtherPattern] = useState(testPatterns.patternShort.sections[0].rows);
+  const [patternPairs, setPatternPairs] = useState([
+    { pattern: testPatterns.patternShort.sections[0].rows, isActive: true },
+    { pattern: testPatterns.patternShort.sections[0].rows, isActive: false },
+  ]);
 
-  
+  const addPatternPair = () => {
+    setPatternPairs([
+      ...patternPairs,
+      {
+        pattern: testPatterns.patternShort.sections[0].rows,
+        isActive: false,
+      },
+    ]);
+  };
+
+  const removePatternPair = (index) => {
+    setPatternPairs(patternPairs.filter((_, i) => i !== index));
+  };
+
+  const updatePattern = (index, newPattern) => {
+    setPatternPairs((prevPairs) =>
+      prevPairs.map((pair, i) =>
+        i === index ? { ...pair, pattern: newPattern } : pair
+      )
+    );
+  };
+
+  const activatePattern = (index) => {
+    setPatternPairs((prevPairs) =>
+      prevPairs.map((pair, i) =>
+        i === index ? { ...pair, isActive: true } : { ...pair, isActive: false }
+      )
+    );
+  };
 
   return (
     <div>
-      <PatternSelector patternsObj={testPatterns} setCurrentPattern={setCurrentPattern} />
-     
-      <Pattern pattern={currentPattern} isActive={true}/>
-
-      <PatternSelector patternsObj={testPatterns} setCurrentPattern={setOtherPattern} />
-      <Pattern pattern={otherPattern} isActive={false} />
+      <button onClick={addPatternPair}>Add Pattern</button>
+      {patternPairs.map((pair, index) => (
+        <div key={index}>
+          <PatternSelector
+            patternsObj={testPatterns}
+            setCurrentPattern={(newPattern) => updatePattern(index, newPattern)}
+          />
+          <Pattern pattern={pair.pattern} isActive={pair.isActive} />
+          <button onClick={() => removePatternPair(index)}>Remove</button>
+          <button onClick={() => activatePattern(index)}>
+  {pair.isActive ? "Deactivate" : "Activate"}
+</button>
+        </div>
+      ))}
     </div>
   );
 }

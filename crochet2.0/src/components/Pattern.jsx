@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Row from "./Row";
 import Counter from "./Counter";
 
-function Pattern({ pattern, totalChecked }) {
+function Pattern({ pattern, totalChecked, isActive }) {
   const [count, setCount] = useState(0);
   const [currentStitchIndex, setCurrentStitchIndex] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  
 
   const totalCheckboxes = Array.isArray(pattern)
     ? pattern.reduce((total, row) => total + row.length, 0)
@@ -102,9 +102,9 @@ function Pattern({ pattern, totalChecked }) {
         isActive={isActive}
       />
 
-      <button onClick={handleToggleActive}>
+      {/* <button onClick={handleToggleActive}>
         {isActive ? "Deactivate" : "Activate"}
-      </button>
+      </button> */}
     </div>
   );
 }
