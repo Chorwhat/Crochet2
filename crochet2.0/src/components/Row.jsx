@@ -1,13 +1,25 @@
 import React from "react";
 
-function Row({ numCheckBoxes, count, startingIndex, onCheckboxClick, rowIndex, cumulativeValue }) {
+/*
+A Row represents the individual rows in a crochet pattern.
+It is used by the Pattern component to render the appropriate amount of Rows
+Each Row contains checkboxes representing individual stitches
+These checkboxes are not checked with their usual
+
+Props:
+numCheckBoxes: number of Checkboxes (stitches) in a row
+numChecked: number of Checkboxes that are checked
+startingIndex: the index of the first stitch in a row, 
+*/
+
+
+function Row({ numCheckBoxes, numChecked, startingIndex, onCheckboxClick, rowIndex, cumulativeValue }) {
   const checkboxes = [...Array(numCheckBoxes)].map((e, i) => (
     <input
       type="checkbox"
-      checked={i + startingIndex < count + startingIndex}
+      checked={i + startingIndex < numChecked + startingIndex}
       onChange={() => {}}
       onClick={() => onCheckboxClick(i + startingIndex)}
-      key={i}
     />
   ));
 

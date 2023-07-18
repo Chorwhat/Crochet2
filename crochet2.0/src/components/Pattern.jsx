@@ -24,10 +24,6 @@ function Pattern({ pattern, isActive }) {
     handleCountChange(clickedCheckboxIndex);
   };
 
-  const handleToggleActive = () => {
-    setIsActive(!isActive);
-  };
-
   useEffect(() => {
     setCurrentStitchIndex(totalChecked - 1);
   }, [totalChecked]);
@@ -38,8 +34,6 @@ function Pattern({ pattern, isActive }) {
   for (let i = 0; i < pattern.length; i++) {
     const checkboxesPerRow = pattern[i].length;
     const numCheckedInRow = Math.min(remainingChecked, checkboxesPerRow);
-
-    console.log("totalCheckboxes: "+ totalCheckboxes)
 
     let rowValue = 0;
     for (let j = 0; j < checkboxesPerRow; j++) {
@@ -65,8 +59,7 @@ function Pattern({ pattern, isActive }) {
     rows.push(
       <Row
         numCheckBoxes={checkboxesPerRow}
-        key={i}
-        count={numCheckedInRow}
+        numChecked={numCheckedInRow}
         startingIndex={startingIndex + 1}
         onCheckboxClick={handleCheckboxClick}
         rowIndex={i + 1}
