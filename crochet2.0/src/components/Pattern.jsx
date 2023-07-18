@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Row from "./Row";
 import Counter from "./Counter";
+import "../App.css"
 
 function Pattern({ pattern, isActive }) {
   const [count, setCount] = useState(0);
@@ -90,7 +91,7 @@ function Pattern({ pattern, isActive }) {
   }
 
   return (
-    <div style={{ overflowX: "scroll", maxWidth: "100vw" }}>
+    <div className={`pattern ${isActive ? "active" : "inactive"}`} style={{ overflowX: "scroll", maxWidth: "100vw" }}>
       <h1>Current Stitch: {currentStitch}</h1>
       <h2>Next Stitch: {nextStitch}</h2>
 

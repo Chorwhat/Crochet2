@@ -60,3 +60,18 @@
   color: #fff;
   border-color: #007bff;
 }
+
+.pattern {
+  overflowX: scroll;
+  maxWidth: 100vw;
+}
+
+.active {
+  background-color: rgb(179, 255, 179);
+  color: white;
+}
+
+.inactive {
+  background-color: rgb(255, 123, 123);
+  color: black;
+}
