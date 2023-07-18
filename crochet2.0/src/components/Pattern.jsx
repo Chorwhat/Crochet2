@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Row from "./Row";
 import Counter from "./Counter";
 
-function Pattern({ pattern, totalChecked, isActive }) {
+function Pattern({ pattern, isActive }) {
   const [count, setCount] = useState(0);
   const [currentStitchIndex, setCurrentStitchIndex] = useState(0);
+  const totalChecked = count;
   
 
   const totalCheckboxes = Array.isArray(pattern)
@@ -36,6 +37,8 @@ function Pattern({ pattern, totalChecked, isActive }) {
   for (let i = 0; i < pattern.length; i++) {
     const checkboxesPerRow = pattern[i].length;
     const numCheckedInRow = Math.min(remainingChecked, checkboxesPerRow);
+
+    console.log("totalCheckboxes: "+ totalCheckboxes)
 
     let rowValue = 0;
     for (let j = 0; j < checkboxesPerRow; j++) {
