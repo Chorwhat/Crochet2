@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Row from "./Row";
 import Counter from "./Counter";
+import Instruction from "./Instruction"; 
 import "../App.css"
 
 function Pattern({ pattern, isActive }) {
@@ -69,12 +70,16 @@ function Pattern({ pattern, isActive }) {
   }
 
   let currentStitch;
+  let currentStitchName;
 
   if (currentStitchIndex === pattern.flat().length) {
     currentStitch = "Done";
   } else {
-    currentStitch = pattern.flat()[currentStitchIndex]?.name;
+    currentStitchName = pattern.flat()[currentStitchIndex]?.name;
+    currentStitch = pattern.flat()[currentStitchIndex];
   }
+
+  console.log("currentStitch:", currentStitch);
 
   let nextStitch;
   if (currentStitchIndex + 1 === pattern.flat().length) {
@@ -85,7 +90,7 @@ function Pattern({ pattern, isActive }) {
 
   return (
     <div className={`pattern ${isActive ? "active" : "inactive"}`} style={{ overflowX: "scroll", maxWidth: "100vw" }}>
-      <h1>Current Stitch: {currentStitch}</h1>
+      <h1>Current Stitch: {currentStitchName}</h1>
       <h2>Next Stitch: {nextStitch}</h2>
 
       <div style={{ display: "flex" }}>
@@ -98,6 +103,8 @@ function Pattern({ pattern, isActive }) {
         totalCheckboxes={totalCheckboxes}
         isActive={isActive}
       />
+
+      <Instruction currentStitch={currentStitch} />
 
       {/* <button onClick={handleToggleActive}>
         {isActive ? "Deactivate" : "Activate"}
